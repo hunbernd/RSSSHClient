@@ -67,7 +67,7 @@ namespace RetroShareSSHClient
                     tb_pw.Text = opt.Password;
                     cb_settingsSave.Checked = true;
                     cb_settingsSavePW.Checked = opt.SavePW;
-                    cb_settingsReadSpeed.SelectedIndex = opt.ReadSpeedIndex;
+                    //cb_settingsReadSpeed.SelectedIndex = opt.ReadSpeedIndex;
                 }
                 if (opt.SaveChat) // chat includes AutoResponse
                 {

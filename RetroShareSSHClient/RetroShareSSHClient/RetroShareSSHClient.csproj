@@ -35,15 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="protobuf-net">
-      <HintPath>..\..\RSRPC\RSRPC\bin\Debug\protobuf-net.dll</HintPath>
+      <HintPath>..\..\includes\protobuf-net.dll</HintPath>
     </Reference>
-    <Reference Include="Renci.SshNet, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>includes\Renci.SshNet.dll</HintPath>
-    </Reference>
-    <Reference Include="Sehraf.RSRPC, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>includes\Sehraf.RSRPC.dll</HintPath>
+    <Reference Include="Renci.SshNet">
+      <HintPath>..\..\includes\Renci.SshNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -97,7 +92,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\RSRPC\RSRPC\RSRPC.csproj">
+      <Project>{b9766547-f1ba-4d93-b9c7-d160ed97763a}</Project>
+      <Name>RSRPC</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
