@@ -119,6 +119,16 @@
             this.gb_peerNew = new System.Windows.Forms.GroupBox();
             this.tb_peedNew = new System.Windows.Forms.TextBox();
             this.gb_peerInfo = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lbl_credits = new System.Windows.Forms.LinkLabel();
+            this.tb_org = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tb_city = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tb_region = new System.Windows.Forms.TextBox();
+            this.tb_country = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.bt_peerRemove = new System.Windows.Forms.Button();
             this.tp_files = new System.Windows.Forms.TabPage();
             this.tv_files = new System.Windows.Forms.TabControl();
@@ -171,6 +181,7 @@
             this.tp_friends.SuspendLayout();
             this.gb_peerNew.SuspendLayout();
             this.gb_peerInfo.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.tp_files.SuspendLayout();
             this.tv_files.SuspendLayout();
             this.tp_filesDownload.SuspendLayout();
@@ -360,7 +371,7 @@
             // 
             // bt_peerNew
             // 
-            this.bt_peerNew.Location = new System.Drawing.Point(347, 211);
+            this.bt_peerNew.Location = new System.Drawing.Point(350, 140);
             this.bt_peerNew.Name = "bt_peerNew";
             this.bt_peerNew.Size = new System.Drawing.Size(72, 23);
             this.bt_peerNew.TabIndex = 25;
@@ -1071,9 +1082,9 @@
             this.gb_peerNew.Controls.Add(this.tb_peedNew);
             this.gb_peerNew.Controls.Add(this.bt_peerNew);
             this.gb_peerNew.Enabled = false;
-            this.gb_peerNew.Location = new System.Drawing.Point(207, 207);
+            this.gb_peerNew.Location = new System.Drawing.Point(207, 336);
             this.gb_peerNew.Name = "gb_peerNew";
-            this.gb_peerNew.Size = new System.Drawing.Size(428, 298);
+            this.gb_peerNew.Size = new System.Drawing.Size(428, 169);
             this.gb_peerNew.TabIndex = 28;
             this.gb_peerNew.TabStop = false;
             this.gb_peerNew.Text = "Add a new friend";
@@ -1083,11 +1094,12 @@
             this.tb_peedNew.Location = new System.Drawing.Point(6, 19);
             this.tb_peedNew.Multiline = true;
             this.tb_peedNew.Name = "tb_peedNew";
-            this.tb_peedNew.Size = new System.Drawing.Size(413, 186);
+            this.tb_peedNew.Size = new System.Drawing.Size(413, 115);
             this.tb_peedNew.TabIndex = 26;
             // 
             // gb_peerInfo
             // 
+            this.gb_peerInfo.Controls.Add(this.groupBox1);
             this.gb_peerInfo.Controls.Add(this.bt_peerRemove);
             this.gb_peerInfo.Controls.Add(this.lb_locations);
             this.gb_peerInfo.Controls.Add(this.tb_peerName);
@@ -1102,10 +1114,106 @@
             this.gb_peerInfo.Controls.Add(this.l_peerLocation);
             this.gb_peerInfo.Location = new System.Drawing.Point(207, 7);
             this.gb_peerInfo.Name = "gb_peerInfo";
-            this.gb_peerInfo.Size = new System.Drawing.Size(428, 194);
+            this.gb_peerInfo.Size = new System.Drawing.Size(428, 323);
             this.gb_peerInfo.TabIndex = 27;
             this.gb_peerInfo.TabStop = false;
             this.gb_peerInfo.Text = "Information";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lbl_credits);
+            this.groupBox1.Controls.Add(this.tb_org);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.tb_city);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.tb_region);
+            this.groupBox1.Controls.Add(this.tb_country);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Location = new System.Drawing.Point(6, 188);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(413, 129);
+            this.groupBox1.TabIndex = 26;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Geo location";
+            // 
+            // lbl_credits
+            // 
+            this.lbl_credits.AutoSize = true;
+            this.lbl_credits.LinkArea = new System.Windows.Forms.LinkArea(72, 22);
+            this.lbl_credits.Location = new System.Drawing.Point(6, 94);
+            this.lbl_credits.Name = "lbl_credits";
+            this.lbl_credits.Size = new System.Drawing.Size(296, 30);
+            this.lbl_credits.TabIndex = 27;
+            this.lbl_credits.TabStop = true;
+            this.lbl_credits.Text = "This product includes GeoLite data created by MaxMind, \r\navailable from http://ww" +
+    "w.maxmind.com.";
+            this.lbl_credits.UseCompatibleTextRendering = true;
+            this.lbl_credits.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbl_credits_LinkClicked);
+            // 
+            // tb_org
+            // 
+            this.tb_org.Location = new System.Drawing.Point(208, 32);
+            this.tb_org.Name = "tb_org";
+            this.tb_org.Size = new System.Drawing.Size(199, 20);
+            this.tb_org.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(205, 16);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(66, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Organization";
+            // 
+            // tb_city
+            // 
+            this.tb_city.Location = new System.Drawing.Point(208, 71);
+            this.tb_city.Name = "tb_city";
+            this.tb_city.Size = new System.Drawing.Size(199, 20);
+            this.tb_city.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(205, 55);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(24, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "City";
+            // 
+            // tb_region
+            // 
+            this.tb_region.Location = new System.Drawing.Point(6, 71);
+            this.tb_region.Name = "tb_region";
+            this.tb_region.Size = new System.Drawing.Size(199, 20);
+            this.tb_region.TabIndex = 3;
+            // 
+            // tb_country
+            // 
+            this.tb_country.Location = new System.Drawing.Point(6, 32);
+            this.tb_country.Name = "tb_country";
+            this.tb_country.Size = new System.Drawing.Size(199, 20);
+            this.tb_country.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 55);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Region";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(43, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Country";
             // 
             // bt_peerRemove
             // 
@@ -1460,6 +1568,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(670, 562);
             this.Controls.Add(this.tc_main);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainForm";
             this.Text = "RetroShare SSH Client by sehraf";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -1491,6 +1600,8 @@
             this.gb_peerNew.PerformLayout();
             this.gb_peerInfo.ResumeLayout(false);
             this.gb_peerInfo.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.tp_files.ResumeLayout(false);
             this.tv_files.ResumeLayout(false);
             this.tp_filesDownload.ResumeLayout(false);
@@ -1630,6 +1741,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dlName;
         private System.Windows.Forms.DataGridViewTextBoxColumn dlSize;
         private System.Windows.Forms.DataGridViewTextBoxColumn dlHash;
+		private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        internal System.Windows.Forms.TextBox tb_region;
+        internal System.Windows.Forms.TextBox tb_country;
+        internal System.Windows.Forms.TextBox tb_city;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.LinkLabel lbl_credits;
+        internal System.Windows.Forms.TextBox tb_org;
+        private System.Windows.Forms.Label label4;
     }
 }
 

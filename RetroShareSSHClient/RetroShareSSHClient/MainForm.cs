@@ -615,6 +615,11 @@ namespace RetroShareSSHClient
 
         #endregion
 
+        private void lbl_credits_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"http://www.maxmind.com");
+        }
+
 
     }
 

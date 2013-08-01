@@ -7,6 +7,7 @@ using rsctrl.system;
 using rsctrl.peers;
 
 using Sehraf.RSRPC;
+using GeoIp;
 
 namespace RetroShareSSHClient
 {
@@ -15,6 +16,8 @@ namespace RetroShareSSHClient
         ResponseSystemAccount _owner; // sounds bad but seems to be the best/easiest way
         List<Person> _peerList;
         Person _selectedPeer;
+        LookupService _lookup;
+        LookupService _lookup2;
 
         //Dictionary<uint, RequestPeers.SetOption> _pendingPeerRequests;
         //public Dictionary<uint, RequestPeers.SetOption> PendingPeerRequests { get { return _pendingPeerRequests; } set { _pendingPeerRequests = value; } }
@@ -29,6 +32,8 @@ namespace RetroShareSSHClient
             _peerList = new List<Person>();
             _selectedPeer = new Person();
             //_pendingPeerRequests = new Dictionary<uint, RequestPeers.SetOption>();
+            _lookup = new LookupService("GeoLiteCity.dat");
+            _lookup2 = new LookupService("GeoIPASNum.dat");
         }
 
         internal void Reset()
@@ -107,7 +112,7 @@ namespace RetroShareSSHClient
             foreach (Person p in _peerList)
             {
                 byte online = 0, total = 0;
-                foreach (Location l in p.locations)
+                foreach (rsctrl.core.Location l in p.locations)
                 {
                     total++;
                     switch (l.state)
@@ -174,6 +179,10 @@ namespace RetroShareSSHClient
             _b.GUI.tb_peerIPInt.Clear();
             _b.GUI.nud_peerPortExt.Value = _b.GUI.nud_peerPortExt.Minimum;
             _b.GUI.nud_peerPortInt.Value = _b.GUI.nud_peerPortInt.Minimum;
+            _b.GUI.tb_country.Text = "";
+            _b.GUI.tb_region.Text = "";
+            _b.GUI.tb_city.Text = "";
+			_b.GUI.tb_org.Text = "";
         }
 
         private bool PortInRange(uint port)
@@ -186,7 +195,7 @@ namespace RetroShareSSHClient
             ClearPeerForm();
             Person p = _peerList[index];
             _selectedPeer = p;
-            foreach (Location l in p.locations)
+            foreach (rsctrl.core.Location l in p.locations)
             {
                 string state = "";
                 switch (l.state)
@@ -209,13 +218,15 @@ namespace RetroShareSSHClient
                 }
                 _b.GUI.lb_locations.Items.Add(l.location + " - " + state);
             }
+            if (p.locations.Count > 0)
+                _b.GUI.lb_locations.SelectedIndex = 0;
             _b.GUI.tb_peerName.Text = p.name;
             _b.GUI.tb_peerID.Text = p.gpg_id;
         }
 
         internal void LocationSelevtedIndexChanged(int index)
         {
-            Location l = _selectedPeer.locations[index];
+            rsctrl.core.Location l = _selectedPeer.locations[index];
             _b.GUI.tb_peerLocation.Text = l.location;
             _b.GUI.tb_peerLocationID.Text = l.ssl_id;
             _b.GUI.tb_peerIPExt.Text = l.extaddr.addr;
@@ -225,12 +236,26 @@ namespace RetroShareSSHClient
             if (PortInRange(l.localaddr.port))
                 _b.GUI.nud_peerPortInt.Value = l.localaddr.port;
             //_b.GUI.tb_dyndns.Text = "NOT IMPLEMENTED";
+            GeoIp.Location iploc = _lookup.getLocation(l.extaddr.addr);
+            if (iploc != null)
+            {
+                _b.GUI.tb_country.Text = iploc.countryName;
+                _b.GUI.tb_region.Text = iploc.regionName;
+                _b.GUI.tb_city.Text = iploc.city;
+            }
+            else
+            {
+                _b.GUI.tb_country.Text = "";
+                _b.GUI.tb_region.Text = "";
+                _b.GUI.tb_city.Text = "";
+            }
+            _b.GUI.tb_org.Text = _lookup2.getOrg(l.extaddr.addr);
         }
 
         internal void SavePeer(int locationIndex)
         {
             Person p = _selectedPeer;
-            Location l = p.locations[locationIndex];
+            rsctrl.core.Location l = p.locations[locationIndex];
             l.extaddr.addr = _b.GUI.tb_peerIPExt.Text;
             l.extaddr.port = Convert.ToUInt16(_b.GUI.nud_peerPortExt.Value);
             l.localaddr.addr = _b.GUI.tb_peerIPInt.Text;

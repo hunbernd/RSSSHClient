@@ -82,6 +82,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="GeoIPASNum.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="GeoLiteCity.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -93,6 +99,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\GeoIP\GeoIP.csproj">
+      <Project>{7117f41f-930d-4ca1-be92-8daf8d4f7af0}</Project>
+      <Name>GeoIP</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\RSRPC\RSRPC\RSRPC.csproj">
       <Project>{b9766547-f1ba-4d93-b9c7-d160ed97763a}</Project>
       <Name>RSRPC</Name>
