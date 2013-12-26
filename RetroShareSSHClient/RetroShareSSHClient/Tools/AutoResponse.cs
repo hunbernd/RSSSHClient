@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 
 using rsctrl.core;
 using rsctrl.chat;
+using RetroShareSSHClient.Tools;
 
 namespace RetroShareSSHClient
 {
@@ -17,6 +18,8 @@ namespace RetroShareSSHClient
 
         //public delegate string ResponseFunctionDelegate();
         public delegate string ResponseFunctionDelegate(string s);
+
+        private Chatbot chatbot;
 
         public AutoResponseItem[] AutoResponseList
         {
@@ -42,6 +45,8 @@ namespace RetroShareSSHClient
         {
             _items = new Dictionary<string, AutoResponseItem>();
             _b = Bridge.GetBridge();
+            chatbot = new Chatbot();
+            this.SetupBasicItems();
         }
 
         /// <summary>
@@ -58,7 +63,7 @@ namespace RetroShareSSHClient
                 {
                     return System.DateTime.UtcNow.ToLongTimeString() + " (UTC)";
                 };
-                AutoResponseItem time = new AutoResponseItem(name, "time", "", '/', true, false, false, timeDelegate);
+                AutoResponseItem time = new AutoResponseItem(name, "time", "", '*', true, false, false, timeDelegate);
                 //time.Enable();
                 _items.Add(name, time);
             }
@@ -71,7 +76,7 @@ namespace RetroShareSSHClient
                 {
                     return System.DateTime.UtcNow.ToShortDateString() + " (UTC)";
                 };
-                AutoResponseItem date = new AutoResponseItem(name, "date", "", '/', true, false, false, dateDelegate);
+                AutoResponseItem date = new AutoResponseItem(name, "date", "", '*', true, false, false, dateDelegate);
                 //date.Enable();
                 _items.Add(name, date);
             }
@@ -83,7 +88,7 @@ namespace RetroShareSSHClient
                 string s = "";
                 //s += "German: <a href=\"retroshare://file?name=RetroShare_Manual_German_2012_12_12.pdf&size=221437&hash=271cc46798434ffbc6163daae86cce475621c952\">RetroShare_Manual_German_2012_12_12.pdf</a> \r";
                 s += "English: <a href=\"retroshare://file?name=RetroShare_Manual_English_2012_12_12_UNFINISHED.pdf&size=183421&hash=b7196b802271946e979279f56e4dea4c1cdac9d0\">RetroShare_Manual_English_2012_12_12_UNFINISHED.pdf</a>";
-                AutoResponseItem manual = new AutoResponseItem(name, "manual", s, '/', true, false, false);
+                AutoResponseItem manual = new AutoResponseItem(name, "manual", s, '*', true, false, false);
                 //manual.Enable();
                 _items.Add(name, manual);
             }
@@ -93,9 +98,26 @@ namespace RetroShareSSHClient
                 string s = "";
                 s += "German: <a href=\"retroshare://file?name=RetroShare_Manual_German_2012_12_12.pdf&size=221437&hash=271cc46798434ffbc6163daae86cce475621c952\">RetroShare_Manual_German_2012_12_12.pdf</a> \r";
                 //s += "English: <a href=\"retroshare://file?name=RetroShare_Manual_English_2012_12_12_UNFINISHED.pdf&size=183421&hash=b7196b802271946e979279f56e4dea4c1cdac9d0\">RetroShare_Manual_English_2012_12_12_UNFINISHED.pdf</a>";
-                AutoResponseItem manual = new AutoResponseItem(name, "manual", s, '/', true, false, false);
+                AutoResponseItem manual = new AutoResponseItem(name, "manual", s, '*', true, false, false);
                 //manual.Enable();
                 _items.Add(name, manual);
+            }
+
+            // add *reset command
+            name = "reset";
+            if (!_items.Keys.Contains<string>(name))
+            {
+                ResponseFunctionDelegate resetfunction = new ResponseFunctionDelegate(chatbot.reset);
+                AutoResponseItem reset = new AutoResponseItem(name, "reset", "", '*', true, false, false, resetfunction);
+                _items.Add(name, reset);
+            }
+            // add *reset command
+            name = "answerbot";
+            if (!_items.Keys.Contains<string>(name))
+            {
+                ResponseFunctionDelegate answerbotfunction = new ResponseFunctionDelegate(chatbot.answer);
+                AutoResponseItem answerbot = new AutoResponseItem(name, "", "", '\0', false, false, false, answerbotfunction);
+                _items.Add(name, answerbot);
             }
 
             // add /insult command

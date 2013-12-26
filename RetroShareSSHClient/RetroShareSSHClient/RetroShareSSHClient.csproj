@@ -11,7 +11,8 @@
     <RootNamespace>RetroShareSSHClient</RootNamespace>
     <AssemblyName>RetroShareSSHClient</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -34,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ChatterBotAPI">
+      <HintPath>..\..\..\..\ChatBotTest\ChatterBotAPI.dll</HintPath>
+    </Reference>
     <Reference Include="protobuf-net">
       <HintPath>..\..\includes\protobuf-net.dll</HintPath>
     </Reference>
@@ -67,6 +71,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Tools\AutoResponse.cs" />
+    <Compile Include="Tools\Chatbot.cs" />
     <Compile Include="Tools\Log.cs" />
     <Compile Include="Tools\LoadSaveHandler.cs" />
     <Compile Include="Tools\RsCollection.cs" />
@@ -81,7 +86,9 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="GeoIPASNum.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
